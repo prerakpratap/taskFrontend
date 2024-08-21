@@ -1,0 +1,102 @@
+<div *ngIf="viewDialog">
+<h2 mat-dialog-title style="text-align: center;">View Task <button matTooltip="edit Task"  style="float: right; margin-top: 5px;"  mat-raised-button color="primary" (click)="editTask()" >Edit  Task</button></h2>
+<mat-dialog-content class="mat-typography">
+    <div class="container-fluid" style="margin-top: 10px;">
+  
+        <div class="row">
+        
+          <div *ngFor="let list of dataList | keyvalue"  class="col-md-6 col-sm-6" >
+            <mat-list style="margin-bottom: 5px;border: 2px solid;">
+                <mat-list-item>
+                  <span matListItemTitle>{{ updateValue(list.key) }}</span>
+                  <span matListItemLine>{{list.value}}</span>
+                </mat-list-item>
+                </mat-list>
+          </div>
+          </div>
+          </div> 
+  </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>
+</div>
+
+<div *ngIf="!viewDialog">
+  <!-- <h2 mat-dialog-title style="text-align: center;">Edit Task</h2> -->
+  <mat-dialog-content class="mat-typography">
+      <div class="container-fluid" style="margin-top: 10px;">
+    
+          <div class="row">
+           
+                  <div class="col-md-12 col-sm-12" style="scroll-behavior: auto;">
+                    <div>
+                      <mat-card >
+                        <mat-card-header style="display: block;text-align: center;color: aliceblue;">
+                            <mat-card-title style="font-size: 22px;">Edit Task</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <form action="" [formGroup]="taskForm">
+                                <div style="max-height: 40vh" class="align-items-center align-self-center">
+                                    <!-- <div id="cover-spin" class="popup-loader" *ngIf="loader == true"></div> -->
+                                </div>
+                                <div class="row mx-0">
+                                    <div class="col-sm-12 col-md-12">
+                                        <mat-form-field class="w-100">
+                                            <mat-label>Title</mat-label>
+                                            <input matInput formControlName="title"  maxlength="30" minlength="2"  required />
+                                            <mat-error *ngIf="taskFormControl['title'].errors?.['required'] && isFormSubmitted">Title is required.</mat-error>
+                                            <mat-error *ngIf="taskFormControl['title'].errors?.['minLength'] && isFormSubmitted">Title must be 2 Characters.</mat-error>
+                                            <mat-error *ngIf="taskFormControl['title'].errors?.['maxLength'] && isFormSubmitted">Title must be 30 Characters.</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    </div>
+              
+                                    <div class="row mx-0">
+                                        <div class="col-sm-12 col-md-12">
+                                            <mat-form-field class="w-100">
+                                                <mat-label>Description</mat-label>
+                                                <input matInput formControlName="description" type="text" maxlength="30" minlength="2" required  />
+                                                <mat-error *ngIf="taskFormControl['description'].errors?.['required'] && isFormSubmitted">Description is required.</mat-error>
+                                                <mat-error *ngIf="taskFormControl['description'].errors?.['minLength']">Description must be 2 Characters.</mat-error>
+                                                <mat-error *ngIf="taskFormControl['description'].errors?.['maxLength'] && isFormSubmitted">Description must be 100 Characters.</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                        </div>
+               
+                                            <div class="row mx-0">
+                                              <div class="col-sm-12 col-md-12">
+                                                  <!-- <mat-form-field class="w-100"> -->
+                                                    <div class="w-100" style="margin-top: 9px;">
+                                                      <mat-label style="color: grey;">Status* :</mat-label>
+                                                      <mat-radio-group  formControlName="status" (change)="radioChange($event)" required >
+                                                        <mat-radio-button class="example-margin" value="pending">Pending</mat-radio-button>
+                                                        <mat-radio-button class="example-margin" value="complete">Complete</mat-radio-button>
+                                                      </mat-radio-group>
+                                                      <mat-error *ngIf="taskFormControl['status'].errors?.['required'] && isFormSubmitted" style="font-size: 11px;">Status is Required.</mat-error>
+                                                  <!-- </mat-form-field> -->
+                                                  </div>
+                                              </div>
+                                              </div>
+                                    </form>
+                        </mat-card-content>
+                        <mat-card-footer style="text-align: center;margin-bottom:10px;">
+              
+                                <button matTooltip="Add Task" type="submit"  mat-raised-button color="primary" (click)="updateForm()" [mat-dialog-close]="true" cdkFocusInitial >update Task</button> 
+                  
+                        </mat-card-footer>
+                      </mat-card>
+                    </div>
+                       
+                  </div>
+                </div>
+              </div>
+            
+          
+    </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cancel</button>
+  </mat-dialog-actions>
+  <div id="cover-spin" *ngIf="loader === true"></div>
+</div>

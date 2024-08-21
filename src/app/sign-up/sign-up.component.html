@@ -1,0 +1,87 @@
+<section class="vh-100">
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <div>
+      <a class="navbar-brand" href="#">
+        <img src="https://www.eminenceinnovation.com/images/logo-yellow-black.png" alt="" width="10%">
+      </a>
+      <button  matTooltip="signup" style="float: right;margin-right: 5px;"    mat-raised-button color="primary"  (click)="redirect()" >Login</button>
+    </div>
+    </div>
+  </nav>
+    <div class="container-fluid h-custom">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-9 col-lg-6 col-xl-5">
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+            class="img-fluid" alt="Sample image">
+        </div>
+        <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">  
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0">Signup</p>
+            </div>
+
+               <!-- UserName input -->
+               <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">UserName</label>
+              <input type="text" autocomplete="new-password" id="form3Example3" formControlName="username" class="form-control form-control-lg"
+                placeholder="Enter a UserName" />
+                <span class="text-danger"
+                *ngIf="(loginFormControl['username'].touched || submitted) && loginFormControl['username'].errors?.['required']">
+                Email is required
+            </span>
+            <span class="text-danger"
+                *ngIf="loginFormControl['username'].touched && loginFormControl['username'].errors?.['minLength']">
+                UserName must be 2 Characters.
+            </span>
+            <span class="text-danger"
+            *ngIf="loginFormControl['username'].touched && loginFormControl['username'].errors?.['maxLength']">
+            UserName must be less than  15 Characters.
+        </span>
+            
+          </div>
+  
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3">Email address</label>
+              <input type="email" autocomplete="new-password" id="form3Example3" formControlName="email" class="form-control form-control-lg"
+                placeholder="Enter a email address" />
+                <span class="text-danger"
+                *ngIf="(loginFormControl['email'].touched || submitted) && loginFormControl['email'].errors?.['required']">
+                Email is required
+            </span>
+            <span class="text-danger"
+                *ngIf="loginFormControl['email'].touched && loginFormControl['email'].errors?.['email']">
+                Enter a valid email address
+            </span>
+            
+          </div>
+            <!-- Password input -->
+            <div class="form-outline mb-3 mx-auto">
+                <label class="form-label" for="form3Example4">Password</label>
+               <input [type]="showPassword ? 'text' : 'password'"  autocomplete="new-password" id="form3Example4" formControlName="password" class="form-control form-control-lg"
+                placeholder="Enter password" oncopy="return false" oncut="return false" (paste)="checkOnPaste()" ondrop="return false" #password  />
+            <mat-icon class="passwordHideShow" style="cursor: pointer" *ngIf="password.type == 'password'" matSuffix (mousedown)="password.type = 'text'"
+            [inline]="true">
+           visibility
+         </mat-icon>
+         <mat-icon class="passwordHideShow" style="cursor: pointer" *ngIf="password.type == 'text'" matSuffix 
+         (click)="password.type = 'password'" [inline]="true">
+         visibility_off
+       </mat-icon>
+                <span class="text-danger"
+                *ngIf="(loginFormControl['password'].touched || submitted) && loginFormControl['password'].errors?.['required']">
+                Password is required
+            </span>
+
+            </div>  
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">SignUp</button>
+            </div>
+          </form>
+        </div>
+      </div>
+</div>
+  </section>
+  <div id="cover-spin" *ngIf="loader === true"></div>
